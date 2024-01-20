@@ -57,6 +57,32 @@
           videoPreview.src = selectedVideo;
         }
       });
+
+      //   轉錄文字
+      async function transcribeVideo() {
+        let formData = new FormData();
+        formData.append("file", selectedFile);
+        try {
+          let response = await axios.post("http://localhost:5000/transcribe", formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          if (response.data) {
+            await displayTranscription(response);
+            // alert("視頻轉錄成功");
+          }
+        } catch (error) {
+          console.log("🚀 ~ transcribeVideo ~ error:", error);
+          alert("視頻轉錄失敗");
+        }
+      }
+
+      async function displayTranscription(response) {
+        transcribedText.innerText = response.data.text;
+      }
+
+      transcribeButton.addEventListener("click", transcribeVideo);
     </script>
   </body>
 </html>
