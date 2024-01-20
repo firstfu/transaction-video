@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Video Transcribing Tool</title>
+    <!-- Import Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      #transcribedText {
+        overflow: scroll;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-lg-6">
+          <h2>視頻預覽</h2>
+          <video id="videoPreview" controls class="w-100"></video>
+          <h2 class="mt-4">上傳視頻</h2>
+          <input type="file" id="videoUpload" class="form-control" />
+          <button id="transcribeButton" type="button" class="btn btn-primary mt-2">Transcribe</button>
+        </div>
+        <div class="col-lg-6">
+          <h2>Transcribed Text(轉錄文字)</h2>
+          <div id="transcribedText" class="border border-primary h-100"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Import Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+      const videoUpload = document.getElementById("videoUpload");
+      const videoPreview = document.getElementById("videoPreview");
+      const transcribeButton = document.getElementById("transcribeButton");
+      const transcribedText = document.getElementById("transcribedText");
+
+      let selectedFile;
+
+      videoUpload.addEventListener("change", e => {
+        if (e.target.files && e.target.files.length > 0) {
+          //   ================================
+          //   selectedFile = e.target.files[0];
+          //   const fileReader = new FileReader();
+          //   fileReader.readAsDataURL(selectedFile);
+          //   console.log("selectedFile:", selectedFile);
+          //   fileReader.onload = event => {
+          //     videoPreview.src = event.target.result;
+          //   };
+
+          //   ================================
+          selectedFile = e.target.files[0];
+          let selectedVideo = URL.createObjectURL(selectedFile);
+          videoPreview.src = selectedVideo;
+        }
+      });
+    </script>
+  </body>
+</html>
