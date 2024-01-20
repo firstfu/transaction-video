@@ -52,15 +52,15 @@ app.post("/transcribe", upload.single("file"), async (req, res) => {
       model: "whisper-1",
     });
     console.log("🚀 ~ app.post ~ transcription:", transcription);
-    res.send(transcription);
+    return res.json(transcription);
   } catch (error) {
     console.log("🚀 ~ app.post ~ error:", error);
     if (error.response) {
       console.log(error.response.status);
-      res.status(500).send(error.response.data);
+      return res.status(500).json(error.response.data);
     } else {
       console.log(error.message);
-      res.status(500).send(error.message);
+      return res.status(500).json(error.message);
     }
   }
 
